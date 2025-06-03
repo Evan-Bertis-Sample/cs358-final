@@ -1,0 +1,131 @@
+#pragma kernel CSMain
+
+Texture2D<float4> InputTexture;
+Texture2D<float4> DepthTexture;
+Texture2D<float4> NormalTexture;
+RWTexture2D<float4> OutputTexture;
+
+#define PI 3.14159265358979323846f
+
+float Luminance(float3 color)
+{
+    return 0.299f * color.x + 0.587 * color.y + 0.114 * color.z;
+}
+
+// ported from GLSL to HLSL
+float hash( float n ) {
+    return frac(sin(n)*43758.5453);
+}
+    
+float noise( float3 x ) {
+    // The noise function returns a value in the range -1.0f -> 1.0f
+    float3 p = floor(x);
+    float3 f = frac(x);
+    
+    f = f*f*(3.0-2.0*f);
+    float n = p.x + p.y*57.0 + 113.0*p.z;
+    
+    return lerp(lerp(lerp( hash(n+0.0), hash(n+1.0),f.x),
+            lerp( hash(n+57.0), hash(n+58.0),f.x),f.y),
+            lerp(lerp( hash(n+113.0), hash(n+114.0),f.x),
+            lerp( hash(n+170.0), hash(n+171.0),f.x),f.y),f.z);
+}
+
+float gaussian(float sigma, float pos) 
+{
+    return (1.0f / sqrt(2.0f * PI * sigma * sigma)) * exp(-(pos * pos) / (2.0f * sigma * sigma));
+}
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    int textureWidth, textureHeight;
+    InputTexture.GetDimensions(textureWidth, textureHeight);
+    if (id.x >= textureWidth || id.y >= textureHeight)
+    {
+        return;
+    }
+
+    float4 color = InputTexture[id.xy];
+
+    // int2 sampleOffset[25] = { int2(-2,-2), int2(-1,-2), int2(0,-2), int2(1,-2), int2(2,-2),
+    //                     int2(-2,-1), int2(-1,-1), int2(0,-1), int2(1,-1), int2(2,-1),
+    //                     int2(-2, 0), int2(-1, 0), int2(0, 0), int2(1, 0), int2(2, 0),
+    //                     int2(-2, 1), int2(-1, 1), int2(0, 1), int2(1, 1), int2(2, 1),
+    //                     int2(-2, 2), int2(-1, 2), int2(0, 2), int2(1, 2), int2(2, 2) };
+
+
+    // float sobelWeightX[25] = { 2, 2, 4, 2, 2,
+    //                            1, 1, 2, 1, 1,
+    //                            0, 0, 0, 0, 0,
+    //                            -1, -1, -2, -1, -1,
+    //                            -2, -2, -4, -2, -2 };
+
+    // float sobelWeightY[25] = { 2, 1, 0, -1, -2,
+    //                            2, 1, 0, -1, -2,
+    //                            4, 2, 0, -2, -4,
+    //                            2, 1, 0, -1, -2,
+    //                            2, 1, 0, -1, -2 };
+
+
+    int2 sampleOffset[9] = { int2(-1,-1), int2(0,-1), int2(1,-1),
+                             int2(-1, 0), int2(0, 0), int2(1, 0),
+                             int2(-1, 1), int2(0, 1), int2(1, 1) };
+
+    float sobelWeightX[9] = { 1, 0, -1, 
+                              2, 0, -2, 
+                              1, 0, -1 };
+    float sobelWeightY[9] = { 1, 2, 1,
+                               0, 0, 0, 
+                               -1, -2, -1 };
+
+    float depthGX = 0, depthGY = 0;
+    float normalGY = 0, normalGX = 0;
+    float3 bleedX = float3(0, 0, 0);
+    float3 bleedY = float3(0, 0, 0);
+
+    int2 origin = id.xy;
+    float3 curNormal = NormalTexture[origin].xyz;
+    
+    // for (int i = 0; i < 25; ++i)
+    for (int i = 0; i < 9; ++i)
+    {
+        int2 samplePos = origin + sampleOffset[i];
+        if (samplePos.x < 0 || samplePos.x >= textureWidth || samplePos.y < 0 || samplePos.y >= textureHeight)
+            continue;
+
+        float depth = DepthTexture[samplePos].r * 100.0f;
+        float normal = length(curNormal - NormalTexture[samplePos].xyz);
+        float3 curColor = InputTexture[samplePos];
+
+        depthGX += sobelWeightX[i] * depth;
+        depthGY += sobelWeightY[i] * depth;
+
+        normalGX += sobelWeightX[i] * normal;
+        normalGY += sobelWeightY[i] * normal;
+
+        bleedX.r += sobelWeightX[i] * curColor.r;
+        bleedX.g += sobelWeightX[i] * curColor.g;
+        bleedX.b += sobelWeightX[i] * curColor.b;
+
+        bleedY.r += sobelWeightY[i] * curColor.r;
+        bleedY.g += sobelWeightY[i] * curColor.g;
+        bleedY.b += sobelWeightY[i] * curColor.b;
+    }
+
+    float depthOutline = max(abs(depthGX), abs(depthGY));
+    float normalOutline = max(abs(normalGX), abs(normalGY));
+    float val = max(depthOutline, normalOutline);
+    val *= 0.8f;
+    float4 outlineColor = lerp(float4(0.7f, 0.5f, 1, 1) * 0.025f, float4(1, 0.6f, 0.2f, 1) * 2.0f, Luminance(color.xyz) * 0.03f);
+    val = smoothstep(0.0f, 2.5f, val);
+
+    float bleedWeight = (1.0f - pow(Luminance(color.xyz), 2.0f)) * 0.25f;
+    float4 bleedColor = float4(max(abs(bleedX), abs(bleedY)), 1.0f) * bleedWeight;
+    // clamp the bleed color to a maximum value
+    bleedColor = min(bleedColor, color * 0.5f);
+
+    // OutputTexture[id.xy] = lerp(color, outlineColor + (color * 0.01f), val);
+    OutputTexture[id.xy] = lerp(color - bleedColor, outlineColor + (color * 0.01f), val);
+    // OutputTexture[id.xy] = float4(bleedColor, 1.0f);
+}

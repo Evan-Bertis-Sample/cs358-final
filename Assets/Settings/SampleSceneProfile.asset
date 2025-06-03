@@ -1,0 +1,718 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8589259941205478044
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AnisotropicKuwaharaComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:AnisotropicKuwaharaPass/AnisotropicKuwaharaComponent
+  active: 1
+  <displayName>k__BackingField: 
+  KernelSizeParam:
+    m_OverrideState: 1
+    m_Value: 2
+  SharpnessParam:
+    m_OverrideState: 1
+    m_Value: 8
+  HardnessParam:
+    m_OverrideState: 1
+    m_Value: 8
+  AlphaParam:
+    m_OverrideState: 1
+    m_Value: 1
+  ZeroCrossingParam:
+    m_OverrideState: 1
+    m_Value: 0.58
+  UseZetaParam:
+    m_OverrideState: 1
+    m_Value: 0
+  ZetaParam:
+    m_OverrideState: 1
+    m_Value: 1
+  PassesParam:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &-7893295128165547882
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 1
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 1
+  threshold:
+    m_OverrideState: 1
+    m_Value: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 1.71
+  scatter:
+    m_OverrideState: 1
+    m_Value: 0.636
+  clamp:
+    m_OverrideState: 0
+    m_Value: 65472
+  tint:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  highQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  downscale:
+    m_OverrideState: 0
+    m_Value: 0
+  maxIterations:
+    m_OverrideState: 0
+    m_Value: 6
+  dirtTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+    dimension: 1
+  dirtIntensity:
+    m_OverrideState: 0
+    m_Value: 0
+--- !u!114 &-6922903423405663569
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ee60f9f3220f74f8d8dd89c4ea3375, type: 3}
+  m_Name: PaperTextureComponent
+  m_EditorClassIdentifier: 
+  active: 1
+  Active:
+    m_OverrideState: 1
+    m_Value: 1
+  PaperTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: a14fce4af57d6d34c932698208102c23, type: 3}
+    dimension: 1
+  Mask:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 80978f0ca7ec73540814a84c26f7e48e, type: 3}
+    dimension: 1
+--- !u!114 &-5458589919291210585
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SobelOutlineComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:SobelOutlinePass/SobelOutlineComponent
+  active: 1
+  <displayName>k__BackingField: 
+  Active:
+    m_OverrideState: 1
+    m_Value: 1
+  OutlineColor:
+    m_OverrideState: 0
+    m_Value:
+      r: 0
+      g: 0
+      b: 0
+      a: 1
+--- !u!114 &-5363260962116693062
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
+  m_Name: ShadowsMidtonesHighlights
+  m_EditorClassIdentifier: 
+  active: 1
+  shadows:
+    m_OverrideState: 1
+    m_Value: {x: 0.69230086, y: 0.6797508, z: 1, w: 0.24232608}
+  midtones:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1, z: 1, w: 0}
+  highlights:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.99657124, z: 0.5172545, w: 0.08568329}
+  shadowsStart:
+    m_OverrideState: 1
+    m_Value: 0
+  shadowsEnd:
+    m_OverrideState: 1
+    m_Value: 0.3
+  highlightsStart:
+    m_OverrideState: 1
+    m_Value: 0.55
+  highlightsEnd:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &-5254259986950868780
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AnisotropicKuwaharaComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:AnisotropicKuwaharaPass/AnisotropicKuwaharaComponent
+  active: 1
+  <displayName>k__BackingField: 
+  KernelSizeParam:
+    m_OverrideState: 1
+    m_Value: 6
+  SharpnessParam:
+    m_OverrideState: 1
+    m_Value: 8
+  HardnessParam:
+    m_OverrideState: 1
+    m_Value: 8
+  AlphaParam:
+    m_OverrideState: 1
+    m_Value: 1
+  ZeroCrossingParam:
+    m_OverrideState: 1
+    m_Value: 0.58
+  UseZetaParam:
+    m_OverrideState: 1
+    m_Value: 0
+  ZetaParam:
+    m_OverrideState: 1
+    m_Value: 1
+  PassesParam:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &-3019184560833096969
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: PaperTextureComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:PaperTexturePass/PaperTextureComponent
+  active: 1
+  <displayName>k__BackingField: 
+  Active:
+    m_OverrideState: 1
+    m_Value: 1
+  PaperTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: a14fce4af57d6d34c932698208102c23, type: 3}
+    dimension: 1
+  Mask:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 80978f0ca7ec73540814a84c26f7e48e, type: 3}
+    dimension: 1
+--- !u!114 &-2584171918344021499
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SobelOutlineComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:SobelOutlinePass/SobelOutlineComponent
+  active: 1
+  <displayName>k__BackingField: 
+  Active:
+    m_OverrideState: 1
+    m_Value: 1
+  OutlineColor:
+    m_OverrideState: 0
+    m_Value:
+      r: 0
+      g: 0
+      b: 0
+      a: 1
+--- !u!114 &-1801383438979884021
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AnisotropicKuwaharaComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:AnisotropicKuwaharaPass/AnisotropicKuwaharaComponent
+  active: 1
+  <displayName>k__BackingField: 
+  KernelSizeParam:
+    m_OverrideState: 0
+    m_Value: 2
+  SharpnessParam:
+    m_OverrideState: 0
+    m_Value: 8
+  HardnessParam:
+    m_OverrideState: 0
+    m_Value: 8
+  AlphaParam:
+    m_OverrideState: 0
+    m_Value: 1
+  ZeroCrossingParam:
+    m_OverrideState: 0
+    m_Value: 0.58
+  UseZetaParam:
+    m_OverrideState: 0
+    m_Value: 0
+  ZetaParam:
+    m_OverrideState: 0
+    m_Value: 1
+  PassesParam:
+    m_OverrideState: 0
+    m_Value: 1
+--- !u!114 &-1272257889182715689
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SobelOutlineComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:SobelOutlinePass/SobelOutlineComponent
+  active: 1
+  <displayName>k__BackingField: 
+  Active:
+    m_OverrideState: 1
+    m_Value: 0
+  OutlineColor:
+    m_OverrideState: 0
+    m_Value:
+      r: 0
+      g: 0
+      b: 0
+      a: 1
+--- !u!114 &-907783541352907084
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AnisotropicKuwaharaComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:AnisotropicKuwaharaPass/AnisotropicKuwaharaComponent
+  active: 1
+  <displayName>k__BackingField: 
+  KernelSizeParam:
+    m_OverrideState: 1
+    m_Value: 18
+  SharpnessParam:
+    m_OverrideState: 1
+    m_Value: 20
+  HardnessParam:
+    m_OverrideState: 1
+    m_Value: 10
+  AlphaParam:
+    m_OverrideState: 1
+    m_Value: 1
+  ZeroCrossingParam:
+    m_OverrideState: 1
+    m_Value: 1.34
+  UseZetaParam:
+    m_OverrideState: 1
+    m_Value: 0
+  ZetaParam:
+    m_OverrideState: 1
+    m_Value: 0.1
+  PassesParam:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &-738722704421809115
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87088e6b3bc81b045b5c6e2c7ff85835, type: 3}
+  m_Name: AnisotropicKuwaharaComponent
+  m_EditorClassIdentifier: 
+  active: 1
+  KernelSizeParam:
+    m_OverrideState: 1
+    m_Value: 10
+  SharpnessParam:
+    m_OverrideState: 1
+    m_Value: 20
+  HardnessParam:
+    m_OverrideState: 1
+    m_Value: 20
+  AlphaParam:
+    m_OverrideState: 1
+    m_Value: 1
+  ZeroCrossingParam:
+    m_OverrideState: 1
+    m_Value: 0.58
+  UseZetaParam:
+    m_OverrideState: 1
+    m_Value: 0
+  ZetaParam:
+    m_OverrideState: 1
+    m_Value: 0.54
+  PassesParam:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &-361375571586990357
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SobelOutlineComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:SobelOutlinePass/SobelOutlineComponent
+  active: 1
+  <displayName>k__BackingField: 
+  Active:
+    m_OverrideState: 1
+    m_Value: 1
+  OutlineColor:
+    m_OverrideState: 1
+    m_Value:
+      r: 0
+      g: 0
+      b: 0
+      a: 1
+--- !u!114 &-145228764419644253
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AnisotropicKuwaharaComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:AnisotropicKuwaharaPass/AnisotropicKuwaharaComponent
+  active: 0
+  <displayName>k__BackingField: 
+  KernelSizeParam:
+    m_OverrideState: 1
+    m_Value: 6
+  SharpnessParam:
+    m_OverrideState: 1
+    m_Value: 8
+  HardnessParam:
+    m_OverrideState: 1
+    m_Value: 100
+  AlphaParam:
+    m_OverrideState: 1
+    m_Value: 2
+  ZeroCrossingParam:
+    m_OverrideState: 1
+    m_Value: 1
+  UseZetaParam:
+    m_OverrideState: 1
+    m_Value: 0
+  ZetaParam:
+    m_OverrideState: 1
+    m_Value: 1.2
+  PassesParam:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: SampleSceneProfile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: 849379129802519247}
+  - {fileID: -7893295128165547882}
+  - {fileID: -5363260962116693062}
+  - {fileID: 7836128048262836432}
+  - {fileID: -738722704421809115}
+  - {fileID: -6922903423405663569}
+  - {fileID: 6714966920829838955}
+  - {fileID: 5772056455109945248}
+  - {fileID: 8935503014707447179}
+  - {fileID: 2569100739058381713}
+--- !u!114 &849379129802519247
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
+  m_Name: Tonemapping
+  m_EditorClassIdentifier: 
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 2
+  neutralHDRRangeReductionMode:
+    m_OverrideState: 0
+    m_Value: 2
+  acesPreset:
+    m_OverrideState: 0
+    m_Value: 3
+  hueShiftAmount:
+    m_OverrideState: 0
+    m_Value: 0
+  detectPaperWhite:
+    m_OverrideState: 0
+    m_Value: 0
+  paperWhite:
+    m_OverrideState: 0
+    m_Value: 300
+  detectBrightnessLimits:
+    m_OverrideState: 0
+    m_Value: 1
+  minNits:
+    m_OverrideState: 0
+    m_Value: 0.005
+  maxNits:
+    m_OverrideState: 0
+    m_Value: 1000
+--- !u!114 &2569100739058381713
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
+  m_Name: ColorAdjustments
+  m_EditorClassIdentifier: 
+  active: 0
+  postExposure:
+    m_OverrideState: 0
+    m_Value: 0.49
+  contrast:
+    m_OverrideState: 0
+    m_Value: 32
+  colorFilter:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  hueShift:
+    m_OverrideState: 0
+    m_Value: 0
+  saturation:
+    m_OverrideState: 1
+    m_Value: -0
+--- !u!114 &2579366495031185941
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AnisotropicKuwaharaComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:AnisotropicKuwaharaPass/AnisotropicKuwaharaComponent
+  active: 1
+  <displayName>k__BackingField: 
+  KernelSizeParam:
+    m_OverrideState: 1
+    m_Value: 6
+  SharpnessParam:
+    m_OverrideState: 1
+    m_Value: 8
+  HardnessParam:
+    m_OverrideState: 1
+    m_Value: 8
+  AlphaParam:
+    m_OverrideState: 1
+    m_Value: 1
+  ZeroCrossingParam:
+    m_OverrideState: 1
+    m_Value: 0.58
+  UseZetaParam:
+    m_OverrideState: 1
+    m_Value: 0
+  ZetaParam:
+    m_OverrideState: 1
+    m_Value: 1
+  PassesParam:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &4472508050026624327
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SobelOutlineComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:SobelOutlinePass/SobelOutlineComponent
+  active: 1
+  <displayName>k__BackingField: 
+  Active:
+    m_OverrideState: 1
+    m_Value: 1
+  OutlineColor:
+    m_OverrideState: 0
+    m_Value:
+      r: 0
+      g: 0
+      b: 0
+      a: 1
+--- !u!114 &5339673494334242058
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SobelOutlineComponent
+  m_EditorClassIdentifier: Assembly-CSharp:LostInLeaves.WatercolorRendering:SobelOutlinePass/SobelOutlineComponent
+  active: 1
+  <displayName>k__BackingField: 
+  Active:
+    m_OverrideState: 1
+    m_Value: 1
+  OutlineColor:
+    m_OverrideState: 0
+    m_Value:
+      r: 0
+      g: 0
+      b: 0
+      a: 1
+--- !u!114 &5772056455109945248
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 0.32732478, g: 0.32200068, b: 0.33962262, a: 1}
+  center:
+    m_OverrideState: 1
+    m_Value: {x: 0.5, y: 0.5}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.443
+  smoothness:
+    m_OverrideState: 0
+    m_Value: 0.2
+  rounded:
+    m_OverrideState: 0
+    m_Value: 0
+--- !u!114 &6714966920829838955
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c489b87c57dbcd469483cd3929b3199, type: 3}
+  m_Name: ShadowNoiseComponent
+  m_EditorClassIdentifier: 
+  active: 1
+  isActive:
+    m_OverrideState: 1
+    m_Value: 1
+  distortionTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 4c92d60ca5d1ae645b99410750bab863, type: 3}
+    dimension: 1
+--- !u!114 &7836128048262836432
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279c8f125c92ef848bd7623b0ccc06b1, type: 3}
+  m_Name: SobelOutlineComponent
+  m_EditorClassIdentifier: 
+  active: 1
+  Active:
+    m_OverrideState: 1
+    m_Value: 1
+  OutlineColor:
+    m_OverrideState: 0
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &8935503014707447179
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221518ef91623a7438a71fef23660601, type: 3}
+  m_Name: WhiteBalance
+  m_EditorClassIdentifier: 
+  active: 1
+  temperature:
+    m_OverrideState: 1
+    m_Value: 20.2
+  tint:
+    m_OverrideState: 1
+    m_Value: 0

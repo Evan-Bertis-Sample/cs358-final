@@ -1,0 +1,48 @@
+#pragma kernel CSMain
+
+Texture2D<float4> InputTexture;
+Texture2D<float4> DistortionTexture;
+RWTexture2D<float4> OutputTexture;
+
+float Luminance(float3 color)
+{
+    return dot(color, float3(0.299, 0.587, 0.114));
+}
+
+[numthreads(8, 8, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    uint width, height;
+    InputTexture.GetDimensions(width, height);
+    if (id.x >= width || id.y >= height) return;
+
+    uint distortionWidth, distortionHeight;
+    DistortionTexture.GetDimensions(distortionWidth, distortionHeight);
+
+    float2 uv = float2(id.x / float(width), id.y / float(height));
+    uint2 distortionIndex = uint2(uv.x * distortionWidth, uv.y * distortionHeight);
+
+    float4 color = InputTexture[id.xy];
+    float3 distortion = DistortionTexture[distortionIndex].xyz;
+    
+    float luminance = Luminance(color.rgb);
+    float influence = (0.4f - luminance);
+    influence = clamp(influence, 0.0f, 1.0f) * 2.0f;
+    // influence *= influence; // Square the influence for a more pronounced effect
+    influence = smoothstep(0.1f, 1.0f, influence);
+
+    distortion = lerp(distortion, float3(0.4f, 0.3f, 1.0f), 0.1f);
+    // make the distortions magnitude dependent on the luminance of the pixel
+
+    // Apply distortion based on influence
+    float4 distortedColor = lerp(color, float4(distortion, 1.0), influence);
+    // make sure our distorted color is the same luminance as the original
+    distortedColor.rgb = normalize(distortedColor.rgb) * (luminance * 1.3f);
+    distortedColor = lerp(color, distortedColor, influence);
+
+    // lerp between the original color and the distorted color based on influence
+
+    // OutputTexture[id.xy] = float4(distortion, 1.0f);
+    OutputTexture[id.xy] = distortedColor;
+    // OutputTexture[id.xy] = influence;
+}

@@ -1,0 +1,66 @@
+#pragma kernel CSMain
+
+Texture2D<float4> ColorTexture; // The main scene color texture
+Texture2D<float4> PaperTexture; // The paper texture to blend with the scene
+Texture2D<float4> MaskTexture;         // The MaskTexture to control blending
+RWTexture2D<float4> OutputTexture; // The output texture
+
+// Function to calculate luminance of a color
+float Luminance(float3 color)
+{
+    return dot(color, float3(0.299, 0.587, 0.114));
+}
+
+[numthreads(8, 8, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    uint width, height;
+    ColorTexture.GetDimensions(width, height);
+
+    // Ensure we don't process pixels outside of the texture bounds
+    if (id.x >= width || id.y >= height)
+        return;
+
+    // Calculate normalized UV coordinates for the ColorTexture
+    float2 uv = float2(id.x / float(width), id.y / float(height));
+
+    uint paperWidth, paperHeight, maskWidth, maskHeight;
+    PaperTexture.GetDimensions(paperWidth, paperHeight);
+    MaskTexture.GetDimensions(maskWidth, maskHeight);
+
+    // Calculate the scale factors for height based on aspect ratios
+    float scaleHeightForPaper = float(paperHeight) / float(height);
+    float scaleHeightForMask = float(maskHeight) / float(height);
+
+    // Calculate the texture indices for PaperTexture and MaskTexture
+    // Adjust the Y-coordinate based on the calculated scale
+    uint2 paperIndex = uint2(uv.x * paperWidth, uv.y * paperHeight);
+    uint2 maskIndex = uint2(uv.x * maskWidth, uv.y * maskHeight);
+
+    // Ensuring indices are within bounds
+    paperIndex.y = min(paperIndex.y, paperHeight - 1);
+    maskIndex.y = min(maskIndex.y, maskHeight - 1);
+
+    float4 color = ColorTexture[id.xy];
+    float4 paper = PaperTexture[paperIndex];
+    float maskValue = MaskTexture[maskIndex].r; // Assuming the MaskTexture is grayscale
+
+    // Calculate the luminance of the color texture's pixel
+    float luminance = Luminance(color.rgb);
+
+    // Calculate visibility based on luminance
+    float luminanceVisibility = saturate(luminance * 2.0f - 1.0f); 
+
+    // Adjust visibility based on the MaskTexture (invert MaskTexture value for intended effect)
+    float maskVisibility = 1.0f - maskValue;
+
+    // Combine luminance visibility and MaskTexture visibility
+    float visibility = max(luminanceVisibility * 0.8f, maskVisibility * 0.3f);
+
+    float paperColorMultiplier = (smoothstep(0.6f, 1.0f, luminance) * 0.5f) + 0.6f;
+
+    // Lerp between the original color and the paper texture based on visibility
+    float4 outputColor = lerp(color, paper * paperColorMultiplier, visibility);
+
+    OutputTexture[id.xy] = outputColor;
+}
